@@ -2,7 +2,7 @@ import pandas as pd
 
 
 
-def preprocess_df(df, unique_id='A'):
+def prepare_df(df, unique_id='A'):
     """
     Preprocess a DataFrame for MLForecast.
     
@@ -19,3 +19,17 @@ def preprocess_df(df, unique_id='A'):
     df['unique_id'] = unique_id                # add unique_id
     df = df[['ds', 'y', 'unique_id']].sort_values('ds')  # keep only needed columns and sort
     return df
+
+
+
+
+def train_test_split(df, split_date):
+    """
+    Split the dataframe into train and test sets.
+    """
+    train = df[df['ds'] < split_date]
+    test = df[df['ds'] >= split_date]
+    return train, test
+
+
+
