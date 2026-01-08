@@ -1,12 +1,35 @@
 # ===============================
-# data  pipline  Script
+# Data Pipeline Script
 # ===============================
+"""
+Script: data_pipeline.py
+Author: Youssef Bouraha
+Date: 2026-01-08
+Purpose: Load, preprocess, and prepare PJME hourly electricity data 
+         for time series forecasting. 
+
+Functionality:
+1. Load raw CSV data and clean it using `prepare_df`.
+2. Split the cleaned data into training and testing sets by date.
+3. Apply exogenous and engineered features (Fourier) 
+   using the pipeline function.
+4. Save the processed train and test datasets to the 
+   `data/preprocessed` folder for downstream modeling.
+
+Usage:
+    python -m src.data.data_pipeline  # solev the paht problem 
+
+Notes:
+- Paths are relative to project root.
+- Excludes raw data from version control; only preprocessed CSVs are saved.
+- Designed for reproducible, modular, and scalable ML workflows.
+"""
 
 import pandas as pd
 import os 
 from pathlib import Path
 from data_preprocessing import prepare_df, train_test_split
-from feature_engineering import date_features, lags, exg_features
+from feature_engineering import exg_features
 from utilsforecast.feature_engineering import pipeline  # applies features to data
 
 

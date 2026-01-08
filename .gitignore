@@ -1,7 +1,9 @@
 
 data/**/*.csv
-data/**/*.npy
 data/**/*.parquet
 
 
 venv/
+
+# Byte-compiled files
+**/__pycache__/
