@@ -54,6 +54,7 @@ ml = MLForecast( models=models,
                  date_features=['dayofweek', 'hour'])
 
 print(f'.......Training models using cross validation...')
+
 cv_df = ml.cross_validation(
                 h=20,
                 df=train[:2000],

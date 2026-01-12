@@ -1,64 +1,35 @@
-# ===============================
-# MLForecast Training Script
-# ===============================
-
-import pandas as pd
+from pipelines.training_pipeline import run_training_pipeline
 import os
 from pathlib import Path
-import xgboost as xgb
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from utilsforecast.losses import mae
-from mlforecast import MLForecast
-from src.data.feature_engineering import date_features, lags
+from utilsforecast.plotting import plot_series
+import matplotlib.pyplot as plt
 
 
 
-print(f'Loading data...')
-PROJECT_ROOT = Path.cwd() 
-train_path = os.path.join(PROJECT_ROOT, 'data', 'preprocessed', 'train.csv')  
-test_path = os.path.join(PROJECT_ROOT, 'data', 'preprocessed', 'test.csv')  
-train = pd.read_csv(train_path, parse_dates=['ds'])
-test = pd.read_csv(test_path, parse_dates=['ds'])
-print(f'✅ Train shape: {train.shape}, Test shape: {test.shape}')
+config =  {   'data_path': os.path.join( Path.cwd() , 'data', 'raw', 'PJME_hourly.csv'),
+               'split_date':'2018-08-02',
+               'freq':'h',
+               'horizon':50,               'save_dir': os.path.join( Path.cwd() , 'trained_models')
+                
+} 
 
 
+plot_number = 1
+full_path = os.path.join('results', f"forecast_plot_{plot_number}.png" )
 
 
+ml, pred_df ,  eval_df , test = run_training_pipeline(config)
+ml.save(config['save_dir'])
+print(f'✅ Trained models saved to {config["save_dir"]}')
 
 
-# ===============================
-# 1 Models 
-# ===============================
+# 3.2 plotting
+fig= plot_series(df=test, 
+                forecasts_df=pred_df, 
+                palette='viridis', 
+                models=['xgb','dt'])
 
-
-models = {
-    'lreg': LinearRegression(),
-    'dt': DecisionTreeRegressor(),
-    'xgb': xgb.XGBRegressor()
-}
-
-
-# ===============================
-# 
-# ===============================
-
-ml = MLForecast( models=models,
-                 freq='h',
-                 lags=lags(),
-                 date_features=date_features())
-
-print(f'Training models...')
-ml.fit(train, static_features=[])
-print(f'✅ Models trained successfully!')
-
-
-
-# ===============================
-# Save the trained models
-# ===============================
-
-#model_path = os.path.join(PROJECT_ROOT, 'models', 'mlforecast_models.pkl')
-
-#ml.save(model_path)
-#print(f'✅ Models saved to {model_path}')
+# 4) Save the current figure to that path
+fig.savefig(full_path, dpi=300, bbox_inches="tight")
+print(f'✅ Forecast plot saved to {full_path}')
+print(eval_df)

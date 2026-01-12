@@ -52,7 +52,7 @@ print(df.head())
 # 2. Apply exogenous features
 # -------------------------------
 # exg_features() returns list of feature functions (Fourier, etc.)
-exg_df, _ = pipeline(df, freq='h', features=exg_features())
+exg_df, future_df = pipeline(df, freq='h', features=exg_features())
 print(f'Exogenous df shape: {exg_df.shape}')
 
 
