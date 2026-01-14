@@ -23,9 +23,10 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 from src.data.loader import load_data
 from src.data.data_preprocessing import prepare_df, train_test_split
 from src.data.feature_engineering import create_features
-from src.training.ml import train_mlforecast_models
+from src.training.ml import train_ml_models
 from utilsforecast.evaluation import evaluate
 from utilsforecast.losses import mae
+from src.evaluation.plot import plot_and_save
 
 
 
@@ -37,7 +38,8 @@ from utilsforecast.losses import mae
 
 
 
-def run_ml_pipeline(config):
+def run_ml_pipeline(config, save_models =True, save_plot= True):
+
     # 1️⃣ Load & prepare data
     df = load_data(config["data_path"])
     df = prepare_df(df)
@@ -50,7 +52,7 @@ def run_ml_pipeline(config):
     exg_df, future_df = create_features(train, config['freq'],  h)
 
     # 3️⃣ Train models
-    ml = train_mlforecast_models(exg_df, config['freq'])
+    ml = train_ml_models(exg_df, config, save_models)
 
     # 4️⃣ Predict
     pred_df = ml.predict(h=h , X_df=future_df)
@@ -59,7 +61,14 @@ def run_ml_pipeline(config):
     merged_df = pd.merge(pred_df, test, on=['unique_id', 'ds'], how='left')
     eval_df = evaluate(merged_df, metrics=[mae])
 
-    return ml, pred_df, eval_df, test
+
+    # we cna dd saving also here  think abo it 
+    if save_plot : 
+        plot_and_save(df=test,
+                    forecasts_df=pred_df, 
+                    full_path=config['plot_path'])
+
+    return pred_df, eval_df,  ml
 
 
 

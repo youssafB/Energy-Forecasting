@@ -12,6 +12,7 @@ from src.data.feature_engineering import create_features
 from src.training.cv import  cross_validation
 from utilsforecast.evaluation import evaluate
 from utilsforecast.losses import mae
+from src.evaluation.plot import plot_and_save
 
 
 
@@ -20,7 +21,7 @@ from utilsforecast.losses import mae
 
 
 
-def run_cv_pipeline(config):
+def run_cv_pipeline(config, save_plot=True):
     
     # -------------------------------
     # 1️⃣ Load & prepare data
@@ -47,10 +48,17 @@ def run_cv_pipeline(config):
     # 4️⃣ Compute MAE per series and per horizon
     # ===============================
 
-    evaluation = evaluate(cv_df.drop(['cutoff'], axis=1), metrics=[mae])
-    evaluation.head()
-    print(f'✅  models errors', evaluation.head())
+    eval_df = evaluate(cv_df.drop(['cutoff'], axis=1), metrics=[mae])
+   
+
+    if save_plot :
+
+        plot_and_save(df=cv_df,  
+                forecasts_df= cv_df.drop(columns=['cutoff', 'y']) , 
+                full_path=config['plot_path'],  
+        )
+        
 
 
 
-    return  cv_df ,    evaluation
+    return  cv_df ,     eval_df

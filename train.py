@@ -1,5 +1,6 @@
 from pipelines.ml_pipeline import run_ml_pipeline
 from pipelines.cv_pipeline import run_cv_pipeline
+from src.evaluation.plot import plot_and_save
 
 import os
 from pathlib import Path
@@ -13,32 +14,28 @@ config =  {   'data_path': os.path.join( Path.cwd() , 'data', 'raw', 'PJME_hourl
                'freq':'h',
                'horizon':50,               
                'save_dir': os.path.join( Path.cwd() , 'trained_models'),
-               'n_windows':2
+               'n_windows':2,
+               'plot_path' :  os.path.join('results', f"forecast_plot.png" )
                 
 } 
 
 
 
 
-# 1. Run the training pipeline
-
-plot_number = 1
-full_path = os.path.join('results', f"forecast_plot_{plot_number}.png" )
 
 
-#ml, pred_df ,  eval_df , test = run_ml_pipeline(config)
+
+# 1  train with ml pipeline 
+#pred_df ,  eval_df ,  ml  = run_ml_pipeline(config, save_models=True)
+
+# 2  train  with cross valdiation 
+cv_df ,   eval_df  = run_cv_pipeline(config)
 
 
-test = run_cv_pipeline(config)
+# 3  train  with fine tuning 
 
-print(eval_df)
-#ml.save(config['save_dir'])
-#print(f'✅ Trained models saved to {config["save_dir"]}')
 
-# 3.2 plotting
-fig= plot_series(df=test,  forecasts_df=pred_df,  palette='viridis')
 
-# 4) Save the current figure to that path
-fig.savefig(full_path, dpi=300, bbox_inches="tight")
-print(f'✅ Forecast plot saved to {full_path}')
+print(eval_df.head() )
+
 
