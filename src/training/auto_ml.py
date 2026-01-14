@@ -6,7 +6,7 @@ import xgboost as xgb
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 
-from src.experiments.tuning_spaces import feature_space, fit_config, xgboost_space
+from src.tuning .tuning_spaces import feature_space, fit_config, xgboost_space
 from mlforecast.auto import AutoMLForecast
 from mlforecast.auto import AutoModel
 

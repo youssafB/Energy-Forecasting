@@ -32,7 +32,7 @@ energy-forecasting/
 │   │   ├── loader.py         # Data loading
 │   │   ├── preprocessing.py  # Data cleaning
 │   │   ├── feature_engineering.py
-│   │   └── splitter.py       # Train/test split
+│   │
 │   │
 │   ├── models/               # Model implementations
 │   │   └── auto_forecast.py  # AutoMLForecast wrapper
