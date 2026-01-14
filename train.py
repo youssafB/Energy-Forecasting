@@ -1,5 +1,6 @@
 from pipelines.ml_pipeline import run_ml_pipeline
 from pipelines.cv_pipeline import run_cv_pipeline
+from pipelines.fn_pipeline import run_fn_pipeline
 from src.evaluation.plot import plot_and_save
 
 import os
@@ -33,6 +34,7 @@ cv_df ,   eval_df  = run_cv_pipeline(config)
 
 
 # 3  train  with fine tuning 
+cv_df ,   eval_df  = run_fn_pipeline(config)
 
 
 
