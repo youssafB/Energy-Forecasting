@@ -18,7 +18,17 @@ This project implements an end-to-end forecasting solution for energy consumptio
 ```
 energy-forecasting/
 │
-├── config/
+|
+|__app/
+│   ├── main.py   
+|   |__components/           
+│   |__pages/
+|       
+|    
+|   
+|   
+|
+|__config/
 │   ├── paths.py                  # Centralized path definitions
 │   └── config.yaml               # Project configuration
 │

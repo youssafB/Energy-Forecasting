@@ -15,9 +15,9 @@ config =  {   'data_path': os.path.join( Path.cwd() , 'data', 'raw', 'PJME_hourl
                'split_date':'2018-07-20',
                'freq':'h',
                'horizon':50,               
-               'save_dir': os.path.join( Path.cwd() , 'trained_models'),
+               'save_dir': os.path.join( Path.cwd() ,'results', 'saved_models'),
                'n_windows':2,
-               'plot_path' :  os.path.join('results', f"forecast_plot.png" )
+               'plot_path' :  os.path.join('results','saved_plots', f"forecast_plot.png" )
                 
 } 
 

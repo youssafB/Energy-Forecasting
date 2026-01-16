@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 def plot_and_save(
     df, 
-    forecasts_df, 
-    full_path, 
+    forecasts_df=None, 
+    #full_path, 
     palette='viridis', 
     models=None
 ):
@@ -23,6 +23,6 @@ def plot_and_save(
         models (list, optional): List of models to include in the plot.
     """
     fig = plot_series(df=df, forecasts_df=forecasts_df, palette=palette, models=models)
-    fig.savefig(full_path, dpi=300, bbox_inches="tight")
-    print(f'✅ Forecast plot saved to {full_path}')
+    #fig.savefig(full_path, dpi=300, bbox_inches="tight")
+    #print(f'✅ Forecast plot saved to {full_path}')
     return fig
