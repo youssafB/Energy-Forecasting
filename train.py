@@ -1,7 +1,8 @@
 from pipelines.ml_pipeline import run_ml_pipeline
 from pipelines.cv_pipeline import run_cv_pipeline
-from pipelines.fn_pipeline import run_fn_pipeline
+from pipelines.fnt_pipeline import run_fnt_pipeline
 from src.evaluation.plot import plot_and_save
+
 
 import os
 from pathlib import Path
@@ -30,11 +31,11 @@ config =  {   'data_path': os.path.join( Path.cwd() , 'data', 'raw', 'PJME_hourl
 #pred_df ,  eval_df ,  ml  = run_ml_pipeline(config, save_models=True)
 
 # 2  train  with cross valdiation 
-cv_df ,   eval_df  = run_cv_pipeline(config)
+#cv_df ,   eval_df  = run_cv_pipeline(config)
 
 
 # 3  train  with fine tuning 
-cv_df ,   eval_df  = run_fn_pipeline(config)
+pred_df ,  eval_df , auto_ml = run_fnt_pipeline(config)
 
 
 

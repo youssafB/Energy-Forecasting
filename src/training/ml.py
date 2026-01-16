@@ -24,7 +24,7 @@ from src.data.feature_engineering import date_features, lags
 
 
 
-def train_ml_models(train_df,config, save_models = True):
+def train_ml_models(train_df,config, save_models):
     """
     Train MLForecast models using lag and date feature definitions.
     """

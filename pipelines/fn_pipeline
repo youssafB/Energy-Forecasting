@@ -1,5 +1,0 @@
-
-
-def run_fn_pipeline():
-    print('hey ')
-   

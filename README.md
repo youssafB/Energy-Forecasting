@@ -18,44 +18,60 @@ This project implements an end-to-end forecasting solution for energy consumptio
 ```
 energy-forecasting/
 │
-├── config/                    # Configuration files
-│   ├── paths.py              # Path management
-│   └── config.yaml           # Project settings
+├── config/
+│   ├── paths.py                  # Centralized path definitions
+│   └── config.yaml               # Project configuration
 │
 ├── data/
-│   ├── raw/                  # Original datasets
-│   ├── processed/            # Cleaned data
-│   └── predictions/          # Model outputs
+│   ├── raw/                      # Raw input datasets
+│   └── processed/                # Cleaned & feature-ready data
 │
-├── src/                      # Source code
-│   ├── data/                 # Data processing modules
-│   │   ├── loader.py         # Data loading
-│   │   ├── preprocessing.py  # Data cleaning
-│   │   ├── feature_engineering.py
-│   │
-│   │
-│   ├── models/               # Model implementations
-│   │   └── auto_forecast.py  # AutoMLForecast wrapper
-│   │
-│   ├── tuning/               # Hyperparameter configs
-│   │   └── hyperparameters.py
-│   │
-│   └── evaluation/           # Evaluation tools
-│       ├── metrics.py        # Performance metrics
-│       └── visualization.py  # Plotting functions
+├── pipelines/
+│   ├── ml_pipeline.py            # Train multiple models using MLForecast
+│   ├── cv_pipeline.py            # Time-series cross-validation pipeline
+│   └── fnt_pipeline.py           # Feature & model experimentation pipeline
 │
-├── scripts/                  # Executable scripts
-│   ├── train.py             # Main training pipeline
-│   ├── predict.py           # Prediction script
-│   └── evaluate.py          # Evaluation script
+├── src/
+│   ├── data/
+│   │   ├── loader.py             # Data loading utilities
+│   │   ├── preprocessing.py      # Cleaning & transformations
+│   │   └── feature_engineering.py
+│   │
+│   ├── training/
+│   │   ├── ml.py                 # MLForecast wrapper
+│   │   ├── auto_ml.py            # AutoMLForecast wrapper
+│   │   └── cv.py                 # Cross-validation training logic
+│   │
+│   ├── tuning/
+│   │   └── tuning_spaces.py      # Hyperparameter search spaces
+│   │
+│   └── evaluation/
+│       ├── evaluate.py           # Metrics computation
+│       └── plot.py               # Forecast & residual plots
 │
-├── notebooks/               # Jupyter notebooks
-│   └── exploratory_analysis.ipynb
+├── scripts/
+│   ├── train.py                  # Main training entry point
+│   ├── predict.py                # Generate forecasts
+│   └── evaluate.py               # Model evaluation script
 │
-└── outputs/                 # Generated outputs
-    ├── models/              # Saved models
-    ├── plots/               # Visualizations
-    └── reports/             # Evaluation reports
+├── notebooks/
+│   ├── 01_eda.ipynb
+│   ├── 02_base_model.ipynb
+│   ├── 03_cross_validation.ipynb
+│   ├── 04_exogenous_features.ipynb
+│   └── 05_fine_tuning.ipynb
+│
+├── results/
+│   ├── saved_models/             # Serialized trained models
+│   └── plots/                    # Generated visualizations
+│
+├── .gitignore
+├── README.md
+└── requirements.txt
+
+
+
+
 ```
 
 ## 🚀 Quick Start
